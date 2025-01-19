@@ -1,0 +1,5 @@
+NODE0_ID=378443ad01180d001ece1f0b9f0b683ce16bda07 \
+NODE1_ID=29e226136675bcfcc753844aa5f69db3848d8758 \
+NODE2_ID=19dfdb961c43fc786d0d46b74c3234ba89346b2f \
+NODE3_ID=ce5ef9b170820257dec5733cf73a9c5e5e534209 \
+docker compose -p tendermint-testnet up -d

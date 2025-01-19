@@ -1,0 +1,60 @@
+version: '3'
+services:
+  node0:
+    image: tendermint/tendermint:latest
+    command:
+      - node
+      - --proxy_app=kvstore
+      - --p2p.persistent_peers=${NODE1_ID}@node1:26656,${NODE2_ID}@node2:26656,${NODE3_ID}@node3:26656
+    volumes:
+      - ./docker/volumes/mytestnet/node0:/tendermint:rw
+    ports:
+      - 45000:26656
+      - 46000:26657
+    networks:
+      - my-tendermint-testnet
+
+  node1:
+    image: tendermint/tendermint:latest
+    command:
+      - node
+      - --proxy_app=kvstore
+      - --p2p.persistent_peers=${NODE0_ID}@node0:26656,${NODE2_ID}@node2:26656,${NODE3_ID}@node3:26656
+    volumes:
+      - ./docker/volumes/mytestnet/node1:/tendermint:rw
+    ports:
+      - 45001:26656
+      - 46001:26657
+    networks:
+      - my-tendermint-testnet
+
+  node2:
+    image: tendermint/tendermint:latest
+    command:
+      - node
+      - --proxy_app=kvstore
+      - --p2p.persistent_peers=${NODE0_ID}@node0:26656,${NODE1_ID}@node1:26656,${NODE3_ID}@node3:26656
+    volumes:
+      - ./docker/volumes/mytestnet/node2:/tendermint:rw
+    ports:
+      - 45002:26656
+      - 46002:26657
+    networks:
+      - my-tendermint-testnet
+
+  node3:
+    image: tendermint/tendermint:latest
+    command:
+      - node
+      - --proxy_app=kvstore
+      - --p2p.persistent_peers=${NODE0_ID}@node0:26656,${NODE1_ID}@node1:26656,${NODE2_ID}@node2:26656
+    volumes:
+      - ./docker/volumes/mytestnet/node3:/tendermint:rw
+    ports:
+      - 45003:26656
+      - 46003:26657
+    networks:
+      - my-tendermint-testnet
+
+networks:
+  my-tendermint-testnet:
